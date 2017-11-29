@@ -446,25 +446,27 @@ class Itermocil(object):
             name_command = 'set name to "' + name + '"'
 
         # Turn commands list into a string command
-        command = "; ".join(commands)
+        # command = "; ".join(commands)
 
-        # Build the applescript snippet.
-        self.applescript.append(
-            ''' tell {tell_target}
-                    write text "{command}"
-                    {name}
-                end tell
-            '''.format(tell_target=tell_target, command=command, name=name_command))
+        for command in commands:
+            # Build the applescript snippet.
+            self.applescript.append(
+                ''' tell {tell_target}
+                        write text "{command}"
+                        {name}
+                    end tell
+                '''.format(tell_target=tell_target, command=command, name=name_command))
 
     def initiate_window(self, commands=None):
         """ Runs the list of commands in the current pane
         """
-        command = "; ".join(commands)
-        self.applescript.append(
-            ''' tell current session of current window
-                    write text "{command}"
-                end tell
-            '''.format(command=command))
+        # command = "; ".join(commands)
+        for command in commands:
+            self.applescript.append(
+                ''' tell current session of current window
+                        write text "{command}"
+                    end tell
+                '''.format(command=command))
 
     def focus_on_pane(self, pane):
         """ Switch focus to the specified pane.
